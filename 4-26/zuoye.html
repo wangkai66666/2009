@@ -9,31 +9,53 @@
 <body>
     <script>
         // 创建对象方式
-        // 1 从构造函数new
-        function Person(name,age){
-            this.name = name
-            this.age = age
+        // 1 从构造函数new 
+        // function Person(name,age){
+        //     this.name = name
+        //     this.age = age
+        // }
+
+        // var p1 = new Person("张三",11)
+        // var p2 = new Person("lisi",22)
+
+
+        // // 对象字面量{}
+
+        // var Obj1 = {}
+        // var Obj2 = {
+        //     color:"red",
+        //     width:"100px"
+        // } 
+
+        // Obj2.hello = function(){
+        //     alert("Hello word")
+        // }
+
+        // console.log(Obj2)
+        // console.log(Obj2.color)
+        // Obj2.hello()
+
+
+        var obj = {
+            name:"zhangsan",
+            age:11,
+            sex:"M"
         }
 
-        var p1 = new Person("张三",11)
-        var p2 = new Person("lisi",22)
+        // 向 obj中添加一个属性 email
+        obj.email = "zhangsan@qq.com"
+
+        console.log(obj)
+        //删除 obj 对象中的ages属性
+
+        delete obj.age
+
+        console.log(obj)
+
+        var obj1 = new Object()
 
 
-        // 对象字面量{}
-
-        var Obj1 = {}
-        var Obj2 = {
-            color:"red",
-            width:"100px"
-        } 
-
-        Obj2.hello = function(){
-            alert("Hello word")
-        }
-
-        console.log(Obj2)
-        console.log(Obj2.color)
-        Obj2.hello()
+        Object.defineProperties(obj1,"name",{})
     </script>
 </body>
 </html>
