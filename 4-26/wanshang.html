@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晚上作业4-26</title>
+</head>
+<body>
+    <script>
+       var arr = [11,22,22,55,66,11,88,66,77,66]
+
+        arr.forEach(function(v,k){
+            if(v == 66){
+                console.log(v,k)
+            }
+        })
+
+        // 求和
+        var num = 0
+        for(var i = 0;i<arr.length;i++){
+            num +=arr[i]
+        }
+        console.log(num);
+
+     // 移除数组 arr 中的所有值等于 22 的元素，直接在给定的 arr 数组上进行操作，并将结果返回
+           function add(arrr,item){
+           for(i=0; i<arr.length;i++){
+                if(item==arr[i]){
+                    arr.splice(i,1);
+                    i--
+                }
+          }
+          return arr;
+       }
+       console.log(add(arr,22))
+
+        var a=0;
+        arr.forEach(function(k,v){
+            if(k==66){
+                a++
+            }
+        })
+        console.log(a)
+
+
+        function $(selector,context){
+            // 如果未传递 context 参数，则默认去 document 值
+            context = context||document;
+            // 通过判断selector 字符串第一个字符来判断 #id  .class element
+            if(selector.charAt(0) === "#")//通过id查找
+            return context.getElementById(selector.slice(1));
+            // selector.slice(1) 截取字符串出去第一个字符后面的字符串，如#id-->id
+            if(selector.charAt(0) === ".")//通过classname 查找
+            return context.getElementsByClassName(selector.slice(1));
+            else//元素名查找
+            return context.getElementsByTagName(selector);
+        }
+    </script>
+</body>
+</html>
