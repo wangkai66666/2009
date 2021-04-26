@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4-26晚上作业</title>
+</head>
+<body>
+    <script>
+        // 创建对象方式
+        // 1 从构造函数new
+        function Person(name,age){
+            this.name = name
+            this.age = age
+        }
+
+        var p1 = new Person("张三",11)
+        var p2 = new Person("lisi",22)
+
+
+        // 对象字面量{}
+
+        var Obj1 = {}
+        var Obj2 = {
+            color:"red",
+            width:"100px"
+        } 
+
+        Obj2.hello = function(){
+            alert("Hello word")
+        }
+
+        console.log(Obj2)
+        console.log(Obj2.color)
+        Obj2.hello()
+    </script>
+</body>
+</html>
