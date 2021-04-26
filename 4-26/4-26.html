@@ -26,7 +26,48 @@
         return arguments[0] + arguments[1] + arguments[2]
 }
 console.log(add(11,12,13))
-     </script>
+
+
+   var arr1 = [11.12,13,14,15,16]
+   console.log(arr1)
+    //通过下表（索引）访问数组元素
+    console.log(arr1[0])
+    console.log(arr1[3])
+    
+    console.log(arr1.length)
+    console.log(arr1[arr1.length-1])
+
+    arr1.forEach(function(y,k){
+        console.log(k,y)
+    })
+
+    arr1.push(66)
+    console.log(arr1)
+    arr1.pop()
+    console.log(arr1)
+
+
+    arr1.unshift(99)
+    arr1.unshift(11)
+    console.log(arr1)
+    arr1.shift()
+    console.log(arr1)
+
+
+
+    arr1.splice(2,1)
+    console.log(arr1)
+    arr1.splice(1,2)
+    console.log(arr1)
+
+    // reverse 倒叙
+    console.log(arr1.reverse())
+
+    // slice  数组复制
+    var res = arr1.splice(0,1)
+    console.log(res)
+
+ </script>
 
 </body>
 </html>
