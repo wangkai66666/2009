@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4-27 进阶新讲</title>
 </head>
+
 <body>
     <script>
         // 创建数组
@@ -20,15 +22,58 @@
         // console.log(obj1)
         // console.log(obj2)
 
-        var a ="hello world"
-        // 定义函数
-        function change(str){
-            str = "..." + str + "..."
+        // var a ="hello world"
+        // // 定义函数
+        // function change(str){
+        //     str = "..." + str + "..."
+        // }
+
+        // console.log(a)
+        // change(a)
+        // console.log(a)
+
+
+
+        //  var obj = {
+        //      name:"zhangsan"
+        //  }
+
+        //  function change(o){
+        //      o.xxx = "hello world"
+        //  }
+
+        //  console.log(obj)
+        //  change(obj)
+        //  console.log(obj)
+
+
+
+        //  function change(arr){
+        //      arr.pop()
+        //  }
+
+        //  var arr = [11,12,13,14,15]
+        //  console.log(arr)
+        //  change(arr)
+        //  console.log(arr)
+
+
+
+        var obj1 = {
+            name: "zhangsan"
         }
 
-        console.log(a)
-        change(a)
-        console.log(a)
+        var obj2 = obj1       // 将 obj1的引用 赋值给 obj2
+        var obj3 = obj1
+
+        obj2.age = 11
+        obj3.sex = "Male"
+
+        console.log("obj1", obj1)
+        console.log("obj2", obj2)
+        console.log("obj3", obj3)
+
     </script>
 </body>
+
 </html>
