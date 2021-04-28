@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6</title>
+</head>
+
+<body>
+    <script>
+        var tmp = new Date();
+
+        function f() {
+            console.log(tmp);
+            if (false) {
+                var tmp = 'hello world';
+            }
+        }
+
+        f();
+
+
+        (typeof window !== 'undefined'
+            ? window
+            : (typeof process === 'object' &&
+                typeof require === 'function' &&
+                typeof global === 'object')
+                ? global
+                : this);
+
+        // 方法二
+        var getGlobal = function () {
+            if (typeof self !== 'undefined') { return self; }
+            if (typeof window !== 'undefined') { return window; }
+            if (typeof global !== 'undefined') { return global; }
+            throw new Error('unable to locate global object');
+        };
+    </script>
+</body>
+
+</html>

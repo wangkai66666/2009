@@ -7,7 +7,39 @@
     <title>Document</title>
 </head>
 <body>
-    11111111111
-    11111111
+    <form action="">
+        <input type="button" value="A" id="var">
+        <input type="button" value="B" id="va">
+        <input type="button" value="C" id="vr">
+        <input type="button" value="D" id="varr">
+        <input type="button" value="E" id="vart">
+    </form>
+
+    <script>
+        document.getElementById("var").onclick = function()  {
+		alert(123)
+	};
+    document.getElementById("va").onclick = function()  {
+		alert(123)
+	};
+    document.getElementById("vr").onclick = function()  {
+		alert(123)
+	};
+    document.getElementById("varr").onclick = function()  {
+		alert(123)
+	};
+    document.getElementById("vart").onclick = function()  {
+		alert(123)
+	};
+
+
+    var a = [];
+for (var i = 0; i < 10; i++) {
+  a[i] = function () {
+    console.log(i);
+  };
+}
+a[6](); 
+    </script>
 </body>
 </html>
