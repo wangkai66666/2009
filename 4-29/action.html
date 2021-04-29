@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let name = "李常志二百五"
+        let age1 = 22
+        let age2 = 74
+
+        let str = '姓名:${name},年龄：$(age1)'
+        console.log(str)  //姓名：李常志  年龄：1748
+
+        let str2 = 'a:${age1+age2},b:${age1-age2}'
+        console.log(str2)
+
+
+
+
+        function test(name = "noname", age = 0) {
+            console.log(name, age)
+        }
+
+        test()
+        test("zhangsan", 11)
+
+
+
+        // 只有一个 rest参数
+        function test1(...args) {
+            console.log(args)
+        }
+        test1(11, 22, 33)
+
+        //有形参 又有rest参数
+        function test2(a, ...args) {
+            console.log(args)
+        }
+        test2(11, 22, 33)
+
+        // 使用 arguments
+        function test3() {
+            console.log(arguments)
+        }
+        test3(11, 22, 33)
+
+    </script>
+</body>
+
+</html>
