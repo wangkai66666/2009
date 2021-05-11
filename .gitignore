@@ -1,1 +1,5 @@
 jquery-3.6.0.min.js
+express/node_modules
+nodejs/node_modules
+vue.js
+vue.min.js
