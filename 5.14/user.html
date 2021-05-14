@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <style>
+        .grid {
+            margin: auto;
+            width: 560px;
+            text-align: center;
+        }
+
+        .grid table {
+            border-top: 1px solid #C2D89A;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .grid th,
+        td {
+            padding: 10;
+            border: 1px dashed #F3DCAB;
+            height: 35px;
+            line-height: 35px;
+        }
+
+        .grid th {
+            background-color: #F3DCAB;
+        }
+
+        .grid .user {
+            padding-bottom: 10px;
+            padding-top: 5px;
+            background-color: #F3DCAB;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="grid">
+            <div>
+                <h1>用户管理</h1>
+                <div class="user">
+                    <div>
+                        <label for="id">
+                            UID：
+                        </label>
+                        <input type="text" id="id" v-model="userid" v-bind:disabled="status">
+                        <label for="name">
+                            用户名：
+                        </label>
+                        <input type="text" id="name" v-model="username">
+                        <button v-on:click="add">提交</button>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>UID</th>
+                        <th>用户名</th>
+                        <th>email</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,k) in list" :key="item.id">
+                        <td>{{item.user_id}}</td>
+                        <td>{{item.user_name}}</td>
+                        <td>{{item.email}}</td>
+                        <td>
+                            <a href="" v-on:click.prevent="edit(k)">修改</a>
+                            <span>|</span>
+                            <a href="" v-on:click.prevent="del(k)">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="../vue.min.js"></s cript>
+    <script src="../axios.min.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                status: false,
+                userid: null,
+                username: null,
+                list: [],
+            },
+            methods: {
+
+                //增加数据
+                add(i) {
+                    let self = this
+
+                    //通过判断状态判断是修改还是添加
+                    if (this.status) {
+                        let user_info = {
+                            user_id: this.userid,
+                            user_name: this.username
+                        }
+                        let id = this.userid
+                        let name = this.username
+                        axios.put("http://localhost:3000/user/update", user_info).then(function (res) {
+                            console.log(res.data)
+                            self.list.forEach(function (v, k) {
+                                if (v.user_id === id) {
+                                    v.user_name = name
+                                }
+                            })
+                        })
+                    } else {
+                        let user_info = {
+                            user_id: this.userid,
+                            user_name: this.username
+                        }
+                        axios.post("http://localhost:3000/user/add", user_info).then(function (res) {
+                            console.log(res.data)  //服务器返回的数据信息
+                            self.list.unshift(user_info)
+                        })
+                    }
+                    this.userid = null
+                    this.username = null
+                    this.status = false
+                },
+
+
+                //删除通过list下标
+                del(i) {
+                    let uid = this.list[i].user_id
+                    console.log(uid)
+                    let self = this
+                    axios.delete(`http://localhost:3000/user/delete?uid=${uid}`).then(function (res) {
+                        console.log(res.data)
+                        self.list.splice(i, 1)
+                    })
+
+                },
+                //修改通过list下标
+                edit(i) {
+                    this.userid = this.list[i].user_id
+                    this.username = this.list[i].user_name
+                    this.status = true
+                }
+            },
+            created() {
+                let self = this
+                let api_url = "http://localhost:3000/user/list"
+                axios.get(api_url).then(function (res) {
+
+                    self.list = res.data
+                })
+            }
+
+        })
+    </script>
+</body>
+
+</html>
