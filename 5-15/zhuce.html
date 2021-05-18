@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>侦听器</title>
+</head>
+<body>
+  <div id="app">
+      <h2>用户注册</h2>
+    用户名：<input type="text" v-model.lazy="username"> <br>
+    Email：<input type="text" v-model.lazy="useremail"> <br>
+    手机号：<input type="text" v-model.lazy="mobile"> <br>
+    密码：<input type="password" v-model="pass1"> <br>
+    确认密码：<input type="password" v-model="pass2"> <br>
+      <input type="submit" value="注册" :disabled="regstatus">
+  </div>
+  <script src="../js/axios.min.js"></script>
+  <script src="../js/vue.min.js"></script>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data:{
+        username:null,
+        useremail:null,
+        mobile:null,
+        email:null,
+        pass1:null,
+        pass2:null,
+        regstatus:true,
+      },
+      methods:{
+          regist(){
+              //获取input中的 用户输入
+              let user_info = {
+                  name:this.username,
+                  email:this.useremail,
+                  mobile: this.mobile,
+                  pass:this.pass2,
+              }
+              //请求注册接口
+              let api = "http://localhost:3001/user/regist"
+              axios.post(api,user_info).then(function(res){
+                  console.log("服务器返回的数据：",res.data)
+              })
+          }
+      },
+      computed:{},
+      //侦听器
+      watch:{
+        username(v){
+            console.log(v)
+            //请求后台接口，检查用户名是否已被占用
+            let api = "http://localhost:3001/check/username?name="+v
+            console.log(api)
+            axios.get(api).then(function(res){
+                console.log("服务器返回的数据: ",res.data)
+                //根据错误码判断
+                if(res.data.errno>0)
+                {
+                    alert("请换一个用户名")
+                }else{
+
+                }
+            })
+        },
+        useremail(v){
+            let api = "http://localhost:3001/check/email?email=" + v
+            console.log(api)
+            axios(api).then(function(res){
+            //根据错误码判断
+            if(res.data.errno>0)
+            {
+                alert("请换一个Email")
+            }else{
+
+            }
+          })
+        },
+        //验证手机号
+        mobile(v){
+            let api = "http://localhost:3001/check/mobile?mobile=" + v
+            axios(api).then(function(res){
+                //根据错误码判断
+                if(res.data.errno>0)
+                {
+                    alert("请换一个手机号")
+                }else{
+                    console.log("手机号可用")
+                }
+            })
+        },
+
+        //检测 确认密码
+
+        regist(){
+
+        }
+
+        //验证两次输入的密码是否一致 两次密码一致，注册改为可用状态
+        pass2(v){
+            if( v === this.pass1 ){
+                this.regstatus = false
+            }
+        }
+      },
+
+    })
+  </script>
+</body>
+</html>

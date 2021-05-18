@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车</title>
+</head>
+<body>
+    <div id="app">
+        <h1>用户注册表</h1>
+       您的游戏昵称： <input type="text" name="" id="" v-model="username">
+       Email: <input type="text" name="" id=""m>
+    </div>
+
+    <script src="../js/vue.min.js"></script>
+
+    <script>
+        new  Vue({
+            el:"#app",
+            data:{
+                username:null,
+            },
+            computed:{},
+            methods:{},
+            // 倾听器
+            watch:{
+                username(v){
+                    let sql = "http://localhost:3000/check/username?uname=" + v
+                    axios("验证用户名是否存在接口").then(function(){
+                        if(res.data.error == 1){
+                            alert()
+                        }else{   //可以注册
+
+                        }
+                    })
+                }
+                }
+            },
+        )}
+    </script>
+</body>
+</html>

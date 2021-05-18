@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <style type="text/css">
+      
+        .container .cart {
+            width: 500px;
+            /*background-color: lightgreen;*/
+            margin: auto;
+吗        }
+        .container .title {
+            background-color: lightblue;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            /*color: #fff;*/
+        }
+        .container .total {
+            background-color: #FFCE46;
+            height: 50px;
+            line-height: 50px;
+            text-align: right;
+        }
+        .container .total button {
+            margin: 0 10px;
+            background-color: #DC4C40;
+            height: 35px;
+            width: 80px;
+            border: 0;
+        }
+        .container .total span {
+            color: red;
+            font-weight: bold;
+        }
+        .container .item {
+            height: 55px;
+            line-height: 55px;
+            position: relative;
+            border-top: 1px solid #ADD8E6;
+        }
+        .container .item img {
+            width: 45px;
+            height: 45px;
+            margin: 5px;
+        }
+        .container .item .name {
+            position: absolute;
+            width: 160px;
+            top: 0;left: 55px;
+            font-size: 16px;
+        }
+
+        .container .item .change {
+            width: 100px;
+            position: absolute;
+            top: 0;
+            right: 50px;
+        }
+        .container .item .change a {
+            font-size: 20px;
+            width: 30px;
+            text-decoration:none;
+            background-color: lightgray;
+            vertical-align: middle;
+        }
+        .container .item .change .num {
+            width: 40px;
+            height: 25px;
+        }
+        .container .item .del {
+            position: absolute;
+            top: 0;
+            right: 0px;
+            width: 40px;
+            text-align: center;
+            font-size: 40px;
+            cursor: pointer;
+            color: red;
+        }
+        .container .item .del:hover {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="container">
+            <my-cart></my-cart>
+    </div>
+</div>
+
+</body>
+</html>
+<script src="../js/vue.min.js"></script>
+
+
+
+
+<script>
+
+    // 标题组件
+    const carttitle = {
+        props : ['username'],
+        template :
+            `
+        <div class="title"> {{username}} 的购物车</div>
+    `
+    }
+
+    // 列表组件
+    const cartbody = {
+
+        props : ['list'],
+
+        template :
+            `
+       <div>
+        <div class="item" v-for="(item,index) in list" :key="item.id">
+          <img src="a.jpg"/>
+          <div class="name">{{item.goods_name}}-{{item.price}}</div>
+          <div class="change">
+            <a href=""@click.prevent="ajj(index)">－</a>
+            <input type="text" class="num" v-bind:value="item.num" @blur="changeNum(index,$event)" />
+            <a href="" @click.prevent="add(index)">＋</a>
+          </div>
+          <div class="del" v-on:click="del(index)">×</div>
+        </div>
+      </div>
+    `,
+
+        // 删除
+        methods : {
+            del(index){
+                //删除数组中的元素，根据索引
+                this.list.splice(index,1)
+            },
+            //手动修改商品数量
+            changeNum(index,ev){
+                console.log(index,ev)
+                this.list[index].num=ev.target.value
+            },
+            //增加商品数量
+            add(index){
+                // console.log(index)
+                this.list[index].num++
+            },
+            //减商品数量
+            ajj(index){
+                // console.log(index)
+                if(this.list[index].num>1){
+                    this.list[index].num--
+                }else{
+                    alert("不买把你自己宰了，反正原料是你，原料说话没啥用     乖~~")
+                }
+
+            },
+        }
+    }
+
+
+    // 尾部组件
+    const cartfoot = {
+        template :
+            `
+      <div class="total">
+        <span>总价：{{total}}</span>
+        <button>结算</button>
+      </div>
+    `,
+
+        // 总价
+        props : ['list'],
+        computed : {   //计算属性
+            total(){
+                // console.log(this.list)
+                let total = 0;
+                this.list.forEach(function(v){
+                    total += v.price * v.num
+                })
+
+                return total
+
+            }
+        }
+    }
+
+    // 全局组件
+    Vue.component('my-cart',{
+
+        data(){
+            return {
+                username : "李常志",
+                list : [
+                    {"id":101,"goods_id":1234,"goods_name":"常志牌泡面","price":666,"num":0,"userid":1234},
+                    {"id":102,"goods_id":2311,"goods_name":"常志煮自己蛋","price":2.5,"num":0,"userid":1234},
+                    {"id":103,"goods_id":4564,"goods_name":"常志脚涮菜","price":5.58,"num":0,"userid":1234},
+                    {"id":104,"goods_id":2345,"goods_name":"红烧常志头","price":8,"num":0,"userid":1234},
+                    {"id":105,"goods_id":8766,"goods_name":"清顿常志汤","price":78,"num":0,"userid":1234},
+                ]
+            }
+        },
+
+
+
+
+
+        components : {
+            "cart-title" : carttitle,
+            "cart-body" : cartbody,
+            "cart-foot" : cartfoot,
+        },
+
+        template:
+            `
+    <div class="cart">
+      <cart-title v-bind:username="username"></cart-title>
+      <cart-body v-bind:list="list"></cart-body>
+      <cart-foot v-bind:list="list"></cart-foot>
+    </div>
+    `
+    })
+
+    // 实例化Vue
+    new Vue({
+        el : "#app",
+    })
+</script>

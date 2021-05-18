@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <p>登录名：<input type="text" name="loadname" v-model="loadname"></p >
+            <p>密码：<input type="password" name="upwd" v-model="upwd"></p >
+            <p>姓名：<input type="text" name="username" v-model="username"></p >
+            <p>联系电话：<input type="text" name="phone" v-model="phone"></p >
+            <p>角色：<input type="text" name="rose" v-model="rose"></p >
+            <p><button v-on:click="sub">提交</button>&nbsp;&nbsp;
+                &nbsp;&nbsp;<button>返回</button></p >
+        </div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>登录名</th>
+                    <th>密码</th>
+                    <th>姓名</th>
+                    <th>联系电话</th>
+                    <th>角色</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  v-for="(item,k) in list" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.lodename}}</td>
+                    <td>{{item.upwd}}</td>
+                    <td>{{item.username}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.rose}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+         <script src="../js/axios.min.js"></script>
+         <script src="../js/vue.min.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                loadname: null,
+                upwd: null,
+                username: null,
+                phone: null,
+                rose: null,
+                list: []
+            },
+            methods: {
+                sub(k){
+                    let self = this
+                    if(this.loadname == null){
+      alert("登录名不能为空")
+                        return false;
+                    }
+                    if(this.upwd == null){
+                        alert("密码不能为空")
+                        return false;
+                    }
+                    if(this.username == null){
+                        alert("姓名不能为空")
+                        return false;
+                    }
+                    if(this.phone == null){
+                        alert("联系电话不能为空")
+                        return false;
+                    }
+                    if(this.rose == null){
+                        alert("角色不能为空")
+                        return false;
+                    }
+
+                    let user_info = {
+                        id: this.id,
+                        loadname: this.loadname,
+                        upwd: this.upwd,
+                        username: this.username,
+                        phone: this.phone,
+                        rose: this.rose
+                    }
+                    console.log("用户消息",user_info)
+                    axios.post('http://localhost:3001/user/add',user_info).then(function (res) {
+                          console.log("服务器返回的消息",res.data)
+                          self.list.unshift(user_info)
+                          self.id = "";
+                          self.loadname = "";
+                          self.upwd = "";
+                          self.username = "";
+                          self.phone = "";
+                          self.rose = "";
+                    })
+                }
+            },
+            created(){
+                let self = this
+                let api_url = "http://localhost:3001/user/list"
+                axios.get(api_url).then(function (res) {
+                    self.list = res.data
+                })
+            }
+        })
+    </script>
+</body>
+</html>
