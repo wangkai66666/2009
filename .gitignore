@@ -3,3 +3,5 @@ nodejs/node_modules
 js/axios.min.js
 js/jquery-3.6.0.min.js
 js/vue.min.js
+js/admin_x.js
+js/admin.jss
